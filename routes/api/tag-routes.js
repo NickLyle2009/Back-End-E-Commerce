@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     const tagData = await Tag.findAll({
       include: [ Product ],
     })
-    res.status(200).json(categoryData);
+    res.status(200).json(tagData);
   }catch (err) {
     res.status(500).json(err);
   }
@@ -20,13 +20,13 @@ router.get('/:id', (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
   try{
-    const categoryData = await Category.findOne({
+    const tagData = await Tag.findOne({
       where: {
         id: req.params.id
       },
       include: [ Product ],
     });
-    res.status(200).json(categoryData);
+    res.status(200).json(tagData);
   } catch (err) {
     res.status(500).json(err)
   }
@@ -35,8 +35,8 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   // create a new tag
   try {
-    const categorynData = await Category.create(req.body);
-    res.status(200).json(categoryData);
+    const tagData = await Tag.create(req.body);
+    res.status(200).json(tagData);
   } catch (err) {
     res.status(400).json(err);
   }
@@ -45,12 +45,12 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
   try{
-    const categoryData = await Category.update({
+    const tagData = await Tag.update({
       where: {
         id: req.params.id
       },
     });
-    res.status(200).json(categoryData);
+    res.status(200).json(tagData);
   } catch (err) {
     res.status(500).json(err)
 }
@@ -58,18 +58,18 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   try {
-    const categoryData = await Category.destroy({
+    const tagData = await Tag.destroy({
       where: {
         id: req.params.id
       }
     });
 
-    if (!categoryData) {
+    if (!tagData) {
       res.status(404).json({ message: 'No location found with this id!' });
       return;
     }
 
-    res.status(200).json(categoryData);
+    res.status(200).json(tagData);
   } catch (err) {
     res.status(500).json(err);
   }
